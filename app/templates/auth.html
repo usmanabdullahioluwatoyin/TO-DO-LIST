@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {# Flash Message Section #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% set category, message = messages[-1] %}
+            <div class="flash-message {{ category }}" id="flash-message">
+                <span>{{ message }}</span>
+                <a href="{{ referrer }}" class="flash-close">&times;</a>                     
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <section class="auth-section">
+
+        {# --- SIGN UP MODAL --- #}
+        {% if modal == 'Signup' %}
+            <h2>Sign Up For an Account</h2>
+
+            <form action="{{ url_for('auth.signup') }}" method="post" novalidate>
+                {{ form.hidden_tag() }} 
+            
+                {{ form.username.label }}
+                {{ form.username(placeholder="surname middlename lastname") }}
+                {% if form.username.errors %}
+                    <p class="field-error">
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+    
+                {{ form.email.label }}
+                {{ form.email(placeholder="example123@gmail.com") }}
+                {% if form.email.errors %}
+                    <p class="field-error">
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+    
+                {{ form.password.label }}
+                <div class="password-input">
+                    {{ form.password(placeholder="Create a strong password") }}
+                    <div class="password-toggle">
+                        <i class="fa-regular fa-eye"></i>
+                    </div>
+                </div>
+                {% if form.password.errors %}
+                    <p class="field-error">
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+                {{ form.confirm.label }}
+                <div class="password-input">
+                    {{ form.confirm(placeholder="Confirm password") }}
+                    <div class="password-toggle">
+                        <i class="fa-regular fa-eye"></i>
+                    </div>
+                </div>
+                {% if form.confirm.errors %}
+                    <p class="field-error">
+                        {% for error in form.confirm.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+                <button>SIGN UP</button>
+            </form>
+
+            <p>Already have an account? <a href="{{ url_for('auth.signin') }}">Sign in</a></p>
+
+
+        {# --- SIGN IN MODAL --- #}
+        {% elif modal == 'Signin' %}
+            <h2>Sign In To Your Account</h2>
+
+            <form action="{{ url_for('auth.signin') }}" method="post" novalidate>
+                {{ form.hidden_tag() }}
+    
+                {{ form.email.label }}
+                {{ form.email(placeholder="example123@gmail.com") }}
+                {% if form.email.errors %}
+                    <p class="field-error">
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+    
+                {{ form.password.label }}
+                <div class="password-input">
+                    {{ form.password(placeholder="enter your account password") }}
+                    <div class="password-toggle">
+                        <i class="fa-regular fa-eye"></i>
+                    </div>
+                </div>
+                {% if form.password.errors %}
+                    <p class="field-error">
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+                <button>SIGN IN</button>
+            </form>
+
+            <p>Don't have an account yet? <a href="{{ url_for('auth.signup') }}">Sign up</a></p>
+
+
+        {# --- SIGN OUT MODAL --- #}
+        {% elif modal == 'Signout' %}
+            <div>
+                <h2>Are you sure you want to exit?</h2>
+                <div class="confirm">
+                    <a class="button" href="{{ url_for('auth.signout') }}">YES</a>
+                    <a class="button" href="{{ referrer }}">NO</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </section>
+
+{% endblock %}

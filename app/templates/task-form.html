@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{{ url_for('tasks.create')}}" method="post">
+
+        {{ task.hidden_tag() }}
+        <label>Title</label> 
+           {{ task.title() }}
+        {% for error in task.title.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+        <label>Description</label>
+        {{ task.description() }}
+        {% for error in task.description.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+        <label>Due Date</label>
+        {{ task.due_date }}
+        {% for error in task.due_date.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+
+        <button type="submit">Create task</button>
+    </form>
+    <a href="{{ url_for('tasks.user_dashboard')}}">Cancel</a>
+{% endblock %}

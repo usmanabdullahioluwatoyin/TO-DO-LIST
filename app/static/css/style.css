@@ -1,0 +1,438 @@
+/* ==========================================================================
+   Task Manager - style.css
+   Save as: static/css/style.css
+   ========================================================================== */
+
+:root {
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --success: #16a34a;
+    --success-bg: #dcfce7;
+    --danger: #dc2626;
+    --danger-hover: #b91c1c;
+    --danger-bg: #fee2e2;
+    --info-bg: #e0e7ff;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- Reset / base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Header / nav ---------- */
+header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+header > h1 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+header nav a {
+    font-weight: 500;
+    color: var(--text);
+}
+
+header nav a:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* username shown in the nav */
+header nav ul h1 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+/* ---------- Main layout ---------- */
+main {
+    max-width: 760px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+main > h1 {
+    margin: 0 0 1rem;
+    font-size: 1.8rem;
+}
+
+/* ---------- Flash messages ---------- */
+.flash-message {
+    max-width: 760px;
+    margin: 1rem auto 0;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--info-bg);
+    color: #3730a3;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.flash-message.success {
+    background: var(--success-bg);
+    color: #166534;
+}
+
+.flash-message.error,
+.flash-message.danger {
+    background: var(--danger-bg);
+    color: #991b1b;
+}
+
+.flash-close {
+    font-size: 1.4rem;
+    line-height: 1;
+    color: inherit;
+    opacity: 0.6;
+    margin-left: 1rem;
+}
+
+.flash-close:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+/* ---------- Buttons (shared) ---------- */
+button,
+a.button {
+    display: inline-block;
+    padding: 0.55rem 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+button:hover,
+a.button:hover {
+    background: var(--primary-hover);
+    text-decoration: none;
+}
+
+button:active,
+a.button:active {
+    transform: translateY(1px);
+}
+
+/* ---------- Forms (create/edit pages and auth) ---------- */
+main > form,
+.auth-section form {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="datetime-local"],
+textarea {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+main > form button[type="submit"],
+.auth-section form button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* validation errors */
+.field-error,
+main > form span {
+    color: var(--danger);
+    font-size: 0.82rem;
+    margin: 0.2rem 0 0;
+}
+
+main > form span {
+    display: block;
+}
+
+/* cancel link under create form */
+main > form + a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--muted);
+}
+
+/* ---------- Auth pages ---------- */
+.auth-section {
+    max-width: 420px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+}
+
+.auth-section h2 {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.auth-section > p {
+    text-align: center;
+    color: var(--muted);
+    margin-top: 1rem;
+}
+
+/* password field with eye toggle */
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 2.6rem;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.8rem;
+    transform: translateY(-50%);
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.password-toggle:hover {
+    color: var(--primary);
+}
+
+/* sign-out confirmation */
+.auth-section > div {
+    background: var(--surface);
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.confirm {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.confirm a.button {
+    min-width: 90px;
+}
+
+.confirm a.button:last-child {
+    background: #e5e7eb;
+    color: var(--text);
+}
+
+.confirm a.button:last-child:hover {
+    background: #d1d5db;
+}
+
+/* ---------- Dashboard filter links ---------- */
+main > a {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    margin: 0 0.35rem 1.25rem 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+main > a:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ---------- Task cards ---------- */
+.task-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--primary);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+}
+
+.task-card h1 {
+    flex: 1 1 100%;
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.task-card p {
+    flex: 1 1 100%;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+/* forms inside a card sit inline, not as stacked "cards" */
+.task-card form {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+.task-card form button {
+    width: auto;
+    margin: 0;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+}
+
+/* delete button */
+.task-card form[action*="delete"] button {
+    background: var(--danger);
+}
+
+.task-card form[action*="delete"] button:hover {
+    background: var(--danger-hover);
+}
+
+/* edit link looks like a small button */
+.task-card > a {
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.task-card > a:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    text-decoration: none;
+}
+
+/* empty state */
+main > p {
+    text-align: center;
+    color: var(--muted);
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header nav,
+    header nav ul {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .task-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

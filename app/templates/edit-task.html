@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+ <h2>Sign Up For an Account</h2>
+
+            <form action="{{ url_for('tasks.edit_task', task_id=task.id) }}" method="post">
+                
+                {{ task_edit.hidden_tag() }}
+
+                {{ task_edit.title.label }}
+                {{ task_edit.title }}
+                {% if task_edit.title.errors %}
+                    <p class="field-error">
+                        {% for error in task_edit.title.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+    
+                {{ task_edit.description.label }}
+                {{ task_edit.description}}
+                {% if task_edit.description.errors %}
+                    <p class="field-error">
+                        {% for error in task_edit.description.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+    
+                {{ task_edit.due_date.label }}
+            
+                    {{ task_edit.due_date}}
+                  
+                {% if task_edit.due_date.errors %}
+                    <p class="field-error">
+                        {% for error in task_edit.due_date.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+               
+
+                <button>Edit</button>
+            </form>
+
+            
+{% endblock %}

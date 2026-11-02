@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>My Tasks</h1>
+    
+    <a href="{{ url_for('tasks.user_dashboard', filter='all') }}">All</a>
+    <a href="{{ url_for('tasks.user_dashboard', filter='active') }}">Active</a>
+    <a href="{{ url_for('tasks.user_dashboard', filter='completed') }}">Completed</a>
+    
+    {% for task in tasks %}
+
+        <div class="task-card">
+    <h2>{{ task.title }}</h2>
+    
+    {% if task.description %}
+        <p>{{ task.description }}</p>
+    {% endif %}
+    
+    {% if task.due_date %}
+        <p>Due: {{ task.due_date.strftime('%Y-%m-%d') }}</p>
+    {% endif %}
+    
+    <!-- Toggle Button -->
+    <form action="{{ url_for('tasks.toggle_task', task_id=task.id) }}" method="post" style="display: inline-block; margin-right: 10px;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn-toggle">
+            {% if task.is_complete %}Mark Active{% else %}Mark Complete{% endif %}
+        </button>
+    </form>
+
+    <!-- Edit Button -->
+    <a href="{{ url_for('tasks.edit_task', task_id=task.id) }}" class="btn-edit" style="display: inline-block; margin-right: 10px; text-decoration: none;">Edit Task</a>
+
+    <!-- Delete Button -->
+    <form action="{{ url_for('tasks.delete_task', task_id=task.id) }}" method="post" style="display: inline-block;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn-delete">Delete</button>
+    </form>
+</div>
+        {% else%}
+        <p>No Tasks found.<a href="{{ url_for('tasks.create')}}">Create One</a></p>
+    {% endfor %}
+{% endblock %}
